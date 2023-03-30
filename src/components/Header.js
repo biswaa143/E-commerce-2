@@ -25,7 +25,7 @@ const Header = () => {
             <Button
               variant="outline-warning"
               onClick={() => ctx.setCartVisibility(true)}
-            >{`My Cart ${cartItemCount}`}</Button>
+            >{`Cart ${cartItemCount}`}</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>
