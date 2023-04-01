@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import MovieList from "./MovieList";
 import { Button } from "react-bootstrap";
+import AddMovie from "./AddMovies";
 
 const MoviePage = () => {
   const [movies, setMovies] = useState([]);
@@ -9,29 +10,48 @@ const MoviePage = () => {
   const [error, setError] = useState(null);
   const [retry, setRetry] = useState(false);
 
-  const fetchMovieHandler = async () => {
+  const fetchMovieHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://swapi.dev/api/film/");
+      const response = await fetch("https://react-http-8e6c7-default-rtdb.firebaseio.com/movies.json");
       if (!response.ok) {
         throw new Error("Something went wrong....Retrying");
       }
       const data = await response.json();
-      const transformedMovies = data.results.map((movieData) => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date,
-        };
-      });
-      setMovies(transformedMovies);
+
+      const loadedMovies = [];
+
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate,
+        });
+      }
+      setMovies(loadedMovies);
     } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
-  };
+  }, []);
+
+  useEffect(()=>{
+    fetchMovieHandler(setMovies, setIsLoading, setError , setRetry) 
+  },[fetchMovieHandler])
+
+  async function addMovieHandler(movie) {
+    const response = await fetch('https://react-http-8e6c7-default-rtdb.firebaseio.com/movies.json', {
+      method: 'POST',
+      body: JSON.stringify(movie),
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
+    const data = await response.json();
+    console.log(data);
+  }
 
   let content = (
     <p style={{ marginLeft: "39.8rem", marginTop: "0.5rem" }}>
@@ -69,13 +89,10 @@ const MoviePage = () => {
         .setRetry(false); 
         console.log('retrying..')
       }, 5000);
-      return ()=>clearTimeout(timer);
+      return () => clearTimeout(timer);
     }
-  },[retry,setMovies])
+  },[retry,fetchMovieHandler])
 
-  useEffect(()=>{
-    fetchMovieHandler(setMovies, setIsLoading, setError , setRetry) 
-  },[setMovies])
 
   if (isLoading) {
     content = (
@@ -85,6 +102,9 @@ const MoviePage = () => {
 
   return (
     <>
+    <section>
+    <AddMovie onAddMovie={addMovieHandler} />
+    </section>
       <section>
         <Button
           style={{ marginLeft: "40rem", marginTop: "1rem" }}
