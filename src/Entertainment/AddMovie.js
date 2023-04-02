@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 
 import MovieList from "./MovieList";
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import AddMovie from "./AddMovies";
+import MovieCard from "./MovieCard";
 
 const MoviePage = () => {
   const [movies, setMovies] = useState([]);
@@ -14,7 +15,9 @@ const MoviePage = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://react-http-8e6c7-default-rtdb.firebaseio.com/movies.json");
+      const response = await fetch(
+        "https://react-http-8e6c7-default-rtdb.firebaseio.com/movies.json"
+      );
       if (!response.ok) {
         throw new Error("Something went wrong....Retrying");
       }
@@ -37,18 +40,21 @@ const MoviePage = () => {
     setIsLoading(false);
   }, []);
 
-  useEffect(()=>{
-    fetchMovieHandler(setMovies, setIsLoading, setError , setRetry) 
-  },[fetchMovieHandler])
+  useEffect(() => {
+    fetchMovieHandler(setMovies, setIsLoading, setError, setRetry);
+  }, [fetchMovieHandler]);
 
   async function addMovieHandler(movie) {
-    const response = await fetch('https://react-http-8e6c7-default-rtdb.firebaseio.com/movies.json', {
-      method: 'POST',
-      body: JSON.stringify(movie),
-      headers: {
-        'content-type': 'application/json'
+    const response = await fetch(
+      "https://react-http-8e6c7-default-rtdb.firebaseio.com/movies.json",
+      {
+        method: "POST",
+        body: JSON.stringify(movie),
+        headers: {
+          "content-type": "application/json",
+        },
       }
-    });
+    );
     const data = await response.json();
     console.log(data);
   }
@@ -61,6 +67,20 @@ const MoviePage = () => {
 
   if (movies.length > 0) {
     content = <MovieList movies={movies} />;
+    content = (
+      <Row
+        className="row"
+        style={{
+          textAlign: "center",
+        }}
+      >
+        {movies.map((movie) => (
+          <Col className="col-md-4" key={movie.id}>
+            <MovieCard movie={movie}/>
+          </Col>
+        ))}
+      </Row>
+    );
   }
 
   const cancelRetrying = () => {
@@ -83,16 +103,16 @@ const MoviePage = () => {
   }
 
   useEffect(() => {
-    if(retry) {
+    if (retry) {
       const timer = setTimeout(() => {
-        fetchMovieHandler(setMovies, setIsLoading, setError , setRetry)
-        .setRetry(false); 
-        console.log('retrying..')
+        fetchMovieHandler(setMovies, setIsLoading, setError, setRetry).setRetry(
+          false
+        );
+        console.log("retrying..");
       }, 5000);
       return () => clearTimeout(timer);
     }
-  },[retry,fetchMovieHandler])
-
+  }, [retry, fetchMovieHandler]);
 
   if (isLoading) {
     content = (
@@ -102,9 +122,9 @@ const MoviePage = () => {
 
   return (
     <>
-    <section>
-    <AddMovie onAddMovie={addMovieHandler} />
-    </section>
+      <section>
+        <AddMovie onAddMovie={addMovieHandler} />
+      </section>
       <section>
         <Button
           style={{ marginLeft: "40rem", marginTop: "1rem" }}

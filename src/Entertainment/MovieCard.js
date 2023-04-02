@@ -5,7 +5,7 @@ import { useContext } from 'react';
 async function deleteMovie(id){
   console.log(id)
   try {
-    const response = await fetch(`https://movie-store-20f0d-default-rtdb.firebaseio.com/movies/${id}.json`, {
+    const response = await fetch(`https://react-http-8e6c7-default-rtdb.firebaseio.com/movies/${id}.json`, {
       method: 'DELETE'
     });
     const data = await response.json();
@@ -17,7 +17,7 @@ async function deleteMovie(id){
 
 const MovieCard = (props) => {
   const ctx = useContext(MovieContext)
-  const {id, title, description, releaseDate, imageUrl } = props.movie;
+  const {id, title, description, releaseDate } = props.movie;
   const deleteMovieHandler = ()=>{
     const movieList = ctx.movieList.filter((movie)=>{return movie.id !== id})
     deleteMovie(id)
@@ -27,7 +27,7 @@ const MovieCard = (props) => {
 
   return (
     <Card style={{margin: '10px auto'}}>
-      <Card.Img variant="top" src={imageUrl} />
+      {/* <Card.Img variant="top" src={imageUrl} /> */}
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>{description}</Card.Text>

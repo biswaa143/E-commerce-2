@@ -7,6 +7,7 @@ import Rootlayout from './components/Layout/RootLayout';
 import StorePage from './pages/Store';
 import HomePage from './pages/Home';
 import MoviePage from './Entertainment/AddMovie';
+import ContactUs from './pages/ContactUs';
 
 const router = createBrowserRouter(
   [
@@ -14,7 +15,8 @@ const router = createBrowserRouter(
       {path:'/' , element:<StorePage/>},
       {path:'/about' , element:<AboutPage/>},
       {path:'/home' , element:<HomePage/>},
-      {path:'/movie' , element:<MoviePage/>}
+      {path:'/movie' , element:<MoviePage/>},
+      {path:'/contact', element:<ContactUs />}
     ]}
   ]
 )
