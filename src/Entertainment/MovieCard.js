@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card , Button} from 'react-bootstrap';
-import MovieContext from '../components/Context/MovieContext';
+import MovieContext from '../components/store/MovieContext';
 import { useContext } from 'react';
 async function deleteMovie(id){
   console.log(id)

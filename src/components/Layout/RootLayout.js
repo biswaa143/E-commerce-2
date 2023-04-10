@@ -1,7 +1,7 @@
 import Header from "../Header"
 import { Outlet } from "react-router-dom"
 import CartContainer from "../Cart/CartContainer"
-import CartContext from "../Context/CartContext"
+import CartContext from "../store/CartContext"
 import { useContext } from "react"
 
 const RootLayout = () =>{

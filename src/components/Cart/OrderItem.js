@@ -1,6 +1,6 @@
 import { Button, Col, Image, Row } from 'react-bootstrap';
 import { useContext } from 'react';
-import CartContext from '../Context/CartContext';
+import CartContext from '../store/CartContext';
 
 const OrderItem = (props) => {
     const ctx = useContext(CartContext)

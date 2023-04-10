@@ -1,6 +1,6 @@
 import ProductCard from "../components/Layout/ProductCard";
 import { Container, Row, Col } from "react-bootstrap";
-import CartContext from "../components/Context/CartContext";
+import CartContext from "../components/store/CartContext";
 import { useContext} from "react";
 
 function StorePage() {

@@ -14,6 +14,7 @@ async function contactDetails(data) {
   );
   const responseData = await response.json();
   console.log(responseData);
+  console.log(data);
 }
 
 const ContactUs = () => {

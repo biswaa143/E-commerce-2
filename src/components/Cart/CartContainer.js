@@ -1,6 +1,6 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
 import OrderList from "./OrderList";
-import CartContext from "../Context/CartContext";
+import CartContext from "../store/CartContext";
 import { useContext } from "react";
 
 const CartContainer = () => {
@@ -14,7 +14,7 @@ const CartContainer = () => {
     <Container
       fluid
       className="bg-light p-3"
-      style={{ position: "fixed", top: 60, right: 0, width: "30%" }}
+      style={{ position: "fixed", top: 60, right: 0, width: "25%" }}
     >
       <Button
         variant="danger"
