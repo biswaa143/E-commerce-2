@@ -9,6 +9,8 @@ import HomePage from "./pages/Home";
 import MoviePage from "./Entertainment/AddMovie";
 import ContactUs from "./pages/ContactUs";
 import ProductDetail from "./pages/ProductDetail";
+import Layout from "./components/Layout/Layout";
+import AuthPage from "./pages/AuthPage";
 
 // const router = createBrowserRouter(
 //   [
@@ -98,49 +100,57 @@ export const productsArr = [
   },
   {
     id: "a3",
-    title: "CHKOKKO Winter Wear Cotton Plain Full Sleeve Turtle Neck T Shirt for Men",
+    title:
+      "CHKOKKO Winter Wear Cotton Plain Full Sleeve Turtle Neck T Shirt for Men",
     price: 700,
     imageSrc: "/images/a3-1.jpg",
   },
   {
     id: "a3",
-    title: "CHKOKKO Winter Wear Cotton Plain Full Sleeve Turtle Neck T Shirt for Men",
+    title:
+      "CHKOKKO Winter Wear Cotton Plain Full Sleeve Turtle Neck T Shirt for Men",
     price: 700,
     imageSrc: "/images/a3-2.jpg",
   },
   {
     id: "a3",
-    title: "CHKOKKO Winter Wear Cotton Plain Full Sleeve Turtle Neck T Shirt for Men",
+    title:
+      "CHKOKKO Winter Wear Cotton Plain Full Sleeve Turtle Neck T Shirt for Men",
     price: 700,
     imageSrc: "/images/a3-3.jpg",
   },
   {
     id: "a3",
-    title: "CHKOKKO Winter Wear Cotton Plain Full Sleeve Turtle Neck T Shirt for Men",
+    title:
+      "CHKOKKO Winter Wear Cotton Plain Full Sleeve Turtle Neck T Shirt for Men",
     price: 700,
     imageSrc: "/images/a3-4.jpg",
   },
   {
     id: "a4",
-    title: "LEOTUDE Cotton Blend Half Sleeve Back Print Oversized T-Shirts for Men",
+    title:
+      "LEOTUDE Cotton Blend Half Sleeve Back Print Oversized T-Shirts for Men",
     price: 750,
     imageSrc: "/images/a4-1.jpg",
   },
   {
     id: "a4",
-    title: "LEOTUDE Cotton Blend Half Sleeve Back Print Oversized T-Shirts for Men",
+    title:
+      "LEOTUDE Cotton Blend Half Sleeve Back Print Oversized T-Shirts for Men",
     price: 750,
     imageSrc: "/images/a4-2.jpg",
   },
   {
     id: "a4",
-    title: "LEOTUDE Cotton Blend Half Sleeve Back Print Oversized T-Shirts for Men",
+    title:
+      "LEOTUDE Cotton Blend Half Sleeve Back Print Oversized T-Shirts for Men",
     price: 750,
     imageSrc: "/images/a4-3.jpg",
   },
   {
     id: "a4",
-    title: "LEOTUDE Cotton Blend Half Sleeve Back Print Oversized T-Shirts for Men",
+    title:
+      "LEOTUDE Cotton Blend Half Sleeve Back Print Oversized T-Shirts for Men",
     price: 750,
     imageSrc: "/images/a4-3.jpg",
   },
@@ -169,15 +179,18 @@ function App() {
   return (
     <CartContext.Provider value={ctxObj}>
       <Rootlayout />
-      <Routes>
-        <Route path="/" element={<HomePage />} /> children:[
-        <Route path="/store" element={<StorePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        {/* <Route path="/home" element={<HomePage />} /> */}
-        <Route path="/movie" element={<MoviePage />} />
-        <Route path="/contact" element={<ContactUs />} />
-        <Route path="/store/:productId" element={<ProductDetail />} />]
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<HomePage />} /> 
+          <Route path="/store" element={<StorePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          {/* <Route path="/home" element={<HomePage />} /> */}
+          <Route path="/movie" element={<MoviePage />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/store/:productId" element={<ProductDetail />} />
+          <Route path="/auth" element={<AuthPage />} />
+        </Routes>
+      </Layout>
     </CartContext.Provider>
   );
 }
