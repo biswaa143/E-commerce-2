@@ -21,37 +21,46 @@ const AuthForm = () => {
     const enteredPassword = passwordInputRef.current.value;
 
     setIsLoading(true);
+    let url;
     if (isLogin) {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCrU_dpYTl7LWLCqRzlvwg6Qb1d6UpAfp0";
     } else {
-      fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCrU_dpYTl7LWLCqRzlvwg6Qb1d6UpAfp0",
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-            returnSecureToken: true
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      ).then((res) => {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCrU_dpYTl7LWLCqRzlvwg6Qb1d6UpAfp0";
+    }
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        password: enteredPassword,
+        returnSecureToken: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
         setIsLoading(false);
-        if(res.ok) {
-
+        if (res.ok) {
+          return res.json();
         } else {
           return res.json().then((data) => {
             // show an error modal
-            let erroeMessage = 'Authentication failed!';
+            let erroeMessage = "Authentication failed!";
             // if(data && data.error && data.error.message) {
             //   erroeMessage = data.error.message;
             // }
-            alert(erroeMessage);
+            throw new Error(erroeMessage);
           });
         }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        alert(err.message);
       });
-    }
   };
 
   return (
@@ -72,7 +81,11 @@ const AuthForm = () => {
           />
         </div>
         <div className={classes.actions}>
-          {!isLoading && <Button type="submit">{isLogin ? "Login" : "Create New Account"}</Button>}
+          {!isLoading && (
+            <Button type="submit">
+              {isLogin ? "Login" : "Create New Account"}
+            </Button>
+          )}
           {isLoading && <p>Sending Request...</p>}
           <Button
             type="button"
