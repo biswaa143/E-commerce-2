@@ -5,12 +5,14 @@ import { useState } from "react";
 import AboutPage from "./pages/About";
 import Rootlayout from "./components/Layout/RootLayout";
 import StorePage from "./pages/Store";
-import HomePage from "./pages/Home";
+import Home from "./pages/Home";
+import HomePage from "./pages/HomePage";
 import MoviePage from "./Entertainment/AddMovie";
 import ContactUs from "./pages/ContactUs";
 import ProductDetail from "./pages/ProductDetail";
-import Layout from "./components/Layout/Layout";
+// import Layout from "./components/Layout/Layout";
 import AuthPage from "./pages/AuthPage";
+import UserProfile from "./components/Profile/UserProfile";
 
 // const router = createBrowserRouter(
 //   [
@@ -179,18 +181,19 @@ function App() {
   return (
     <CartContext.Provider value={ctxObj}>
       <Rootlayout />
-      <Layout>
+      {/* <Layout> */}
         <Routes>
-          <Route path="/" element={<HomePage />} /> 
+          <Route path="/home" element={<Home />} /> 
           <Route path="/store" element={<StorePage />} />
           <Route path="/about" element={<AboutPage />} />
-          {/* <Route path="/home" element={<HomePage />} /> */}
           <Route path="/movie" element={<MoviePage />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/store/:productId" element={<ProductDetail />} />
+          <Route path="/" exact element={<HomePage />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/profile" element={<UserProfile />} />
         </Routes>
-      </Layout>
+      {/* </Layout> */}
     </CartContext.Provider>
   );
 }

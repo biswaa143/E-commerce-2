@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Card, Col, Container, Navbar } from "react-bootstrap";
 import {AiOutlinePlayCircle} from "react-icons/ai";
 
-const HomePage = () => {
+const Home = () => {
   return (
     <>
       <Navbar style={{ backgroundColor: "grey" }} expand="lg">
@@ -98,4 +98,4 @@ const HomePage = () => {
     </>
   );
 };
-export default HomePage;
+export default Home;

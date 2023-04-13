@@ -24,7 +24,7 @@ const ProductCard = (props) => {
     }
 
   return (
-    <Card style={{ width: '15rem', margin: '5rem' }}>
+    <Card style={{ width: '15rem', margin: '3rem' }}>
      
       <Link to={`/store/${id}`} ><Card.Img variant="top" src={imageSrc} style={{ height: '15rem', objectFit: 'cover' }} /></Link>
       <Card.Body style={{ padding: '0.5rem' }}>

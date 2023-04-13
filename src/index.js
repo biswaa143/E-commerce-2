@@ -7,14 +7,15 @@ import reportWebVitals from "./reportWebVitals";
 
 import "../node_modules/react-bootstrap/dist/react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import { AuthContextProvider } from "./components/store/auth-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
+  <BrowserRouter>
+    <AuthContextProvider>
       <App />
-    </BrowserRouter>
-  </React.StrictMode>
+    </AuthContextProvider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

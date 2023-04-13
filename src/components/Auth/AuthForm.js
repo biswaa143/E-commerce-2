@@ -1,11 +1,14 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { Button } from "react-bootstrap";
 
 import classes from "./AuthForm.module.css";
+import AuthContext from "../store/auth-context";
 
 const AuthForm = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+
+  const authCtx = useContext(AuthContext);
 
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,16 +50,16 @@ const AuthForm = () => {
         } else {
           return res.json().then((data) => {
             // show an error modal
-            let erroeMessage = "Authentication failed!";
+            let errorMessage = "Authentication failed: Please check your Email or Password!";
             // if(data && data.error && data.error.message) {
             //   erroeMessage = data.error.message;
             // }
-            throw new Error(erroeMessage);
+            throw new Error(errorMessage);
           });
         }
       })
       .then((data) => {
-        console.log(data);
+        authCtx.login(data.idToken);
       })
       .catch((err) => {
         alert(err.message);
@@ -83,7 +86,7 @@ const AuthForm = () => {
         <div className={classes.actions}>
           {!isLoading && (
             <Button type="submit">
-              {isLogin ? "Login" : "Create New Account"}
+              {isLogin ? "Login" : "Create Account"}
             </Button>
           )}
           {isLoading && <p>Sending Request...</p>}
