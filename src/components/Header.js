@@ -8,6 +8,9 @@ const Header = () => {
   const authCtx = useContext(AuthContext);
 
   const isLoggedIn = authCtx.isLoggedIn;
+  const logoutHandler = () => {
+    authCtx.logout();
+  }
 
   const ctx = useContext(CartContext);
   const orderlist = ctx.orderList;
@@ -49,7 +52,7 @@ const Header = () => {
               </Link>
             )}
             {isLoggedIn && (
-              <Button style={{ marginLeft: "25rem" }}>Logout</Button>
+              <Button onClick={logoutHandler} style={{ marginLeft: "25rem" }}>Logout</Button>
             )}
           </Nav>
           <Nav>
