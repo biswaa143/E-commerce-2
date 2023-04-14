@@ -1,7 +1,7 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import CartContext from "./components/store/CartContext";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AboutPage from "./pages/About";
 import Rootlayout from "./components/Layout/RootLayout";
 import StorePage from "./pages/Store";
@@ -13,6 +13,7 @@ import ProductDetail from "./pages/ProductDetail";
 // import Layout from "./components/Layout/Layout";
 import AuthPage from "./pages/AuthPage";
 import UserProfile from "./components/Profile/UserProfile";
+import AuthContext from "./components/store/auth-context";
 
 // const router = createBrowserRouter(
 //   [
@@ -167,6 +168,7 @@ export const productsArr = [
 // });
 
 function App() {
+  const authCtx = useContext(AuthContext);
   const [cartVisibility, setCartVisibility] = useState(false);
   const [orderList, setOrderList] = useState([]);
 
@@ -182,17 +184,20 @@ function App() {
     <CartContext.Provider value={ctxObj}>
       <Rootlayout />
       {/* <Layout> */}
-        <Routes>
-          <Route path="/home" element={<Home />} /> 
-          <Route path="/store" element={<StorePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/movie" element={<MoviePage />} />
-          <Route path="/contact" element={<ContactUs />} />
-          <Route path="/store/:productId" element={<ProductDetail />} />
-          <Route path="/" exact element={<HomePage />} />
-          <Route path="/auth" element={<AuthPage />} />
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/store" element={<StorePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/movie" element={<MoviePage />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/store/:productId" element={<ProductDetail />} />
+        <Route path="/" exact element={<HomePage />} />
+        {!authCtx.isLoggedIn && <Route path="/auth" element={<AuthPage />} />}
+        {authCtx.isLoggedIn && (
           <Route path="/profile" element={<UserProfile />} />
-        </Routes>
+        )}
+        <Route path="*" element={<Navigate replace to='/' />} />
+      </Routes>
       {/* </Layout> */}
     </CartContext.Provider>
   );
