@@ -24,7 +24,7 @@ const Header = () => {
       setTimer(
         setTimeout(() => {
           logoutHandler();
-        }, 60000) // 5 minutes in milliseconds
+        }, 300000) // 5 minutes in milliseconds
       );
       return () => clearTimeout(timer);
     }
