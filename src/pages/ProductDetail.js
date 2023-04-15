@@ -6,7 +6,7 @@ import { Card, Button } from "react-bootstrap";
 import { MdStar } from "react-icons/md";
 import { MdOutlineStarHalf } from "react-icons/md";
 
-const ProductDetail = () => {
+const ProductDetail = (props) => {
   const params = useParams();
   console.log(params);
   console.log(params.productId);

@@ -1,23 +1,35 @@
+import { useState, useEffect, useContext } from "react";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
-import { useContext } from "react";
-import CartContext from "./store/CartContext";
 import { Link } from "react-router-dom";
 import AuthContext from "./store/auth-context";
+import CartContext from "./store/CartContext";
 
 const Header = () => {
+  const [timer, setTimer] = useState(null);
   const authCtx = useContext(AuthContext);
-
   const isLoggedIn = authCtx.isLoggedIn;
   const logoutHandler = () => {
     authCtx.logout();
-  }
-
+    clearTimeout(timer);
+  };
   const ctx = useContext(CartContext);
   const orderlist = ctx.orderList;
   let cartItemCount = 0;
   orderlist.forEach((item) => {
     cartItemCount += item.quantity;
   });
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setTimer(
+        setTimeout(() => {
+          logoutHandler();
+        }, 60000) // 5 minutes in milliseconds
+      );
+      return () => clearTimeout(timer);
+    }
+  }, [isLoggedIn]);
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -40,7 +52,6 @@ const Header = () => {
             <Link to="/contact" className="nav-link">
               Contact Us
             </Link>
-            {/* <Link to="/ProductDetail" className="nav-link">Products</Link> */}
             {!isLoggedIn && (
               <Link to="/auth" className="nav-link">
                 Login
@@ -52,7 +63,9 @@ const Header = () => {
               </Link>
             )}
             {isLoggedIn && (
-              <Button onClick={logoutHandler} style={{ marginLeft: "25rem" }}>Logout</Button>
+              <Button onClick={logoutHandler} style={{ marginLeft: "25rem" }}>
+                Logout
+              </Button>
             )}
           </Nav>
           <Nav>
