@@ -14,6 +14,7 @@ import ProductDetail from "./pages/ProductDetail";
 import AuthPage from "./pages/AuthPage";
 import UserProfile from "./components/Profile/UserProfile";
 import AuthContext from "./components/store/auth-context";
+import Login from "./pages/Login";
 
 // const router = createBrowserRouter(
 //   [
@@ -188,6 +189,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/store" element={<StorePage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/movie" element={<MoviePage />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/store/:productId" element={<ProductDetail />} />
