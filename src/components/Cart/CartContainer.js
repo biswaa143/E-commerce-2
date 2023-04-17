@@ -14,7 +14,7 @@ const CartContainer = () => {
     <Container
       fluid
       className="bg-light p-3"
-      style={{ position: "fixed", top: 60, right: 0, width: "25%" }}
+      style={{ position: "fixed", top: 60, right: 0, width: "25%", zIndex: '1' }}
     >
       <Button
         variant="danger"
@@ -26,13 +26,15 @@ const CartContainer = () => {
       <Row>
         <Col xs={15}>
           <h4 className="text-center mb-4">Cart</h4>
-          {orderList.length > 0 ? (
-            <OrderList
-              orders={orderList}
-            />
-          ) : (
-            <p className="text-center">Your cart is empty.</p>
-          )}
+          <div style={{ height: "400px", overflow: "scroll" }}>
+            {orderList.length > 0 ? (
+              <OrderList
+                orders={orderList}
+              />
+            ) : (
+              <p className="text-center">Your cart is empty.</p>
+            )}
+          </div>
         </Col>
       </Row>
       <hr />

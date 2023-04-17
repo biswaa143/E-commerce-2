@@ -15,7 +15,6 @@ const Login = () => {
   // const switchAuthModeHandler = () => {
   //   setIsLogin((prevState) => !prevState);
   // };
-  console.log(setIsLogin);
 
   const submitHandler = (event) => {
     event.preventDefault();
